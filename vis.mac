@@ -1,0 +1,118 @@
+# Macro file for the visualization setting for the initialization phase 
+
+# Use these open statements to open selected visualization
+#
+# Use this open statement to create an OpenGL view:
+/vis/open OGL 800x800-0+0
+#/vis/sceneHandler/create OGL
+#/vis/viewer/create ! ! 600
+#/vis/viewer/select viewer-0 (OpenGLStoredQt)
+#
+# Use this open statement to create an OpenInventor view:
+#/vis/open OIX
+#
+# Use this open statement to create a .prim file suitable for
+# viewing in DAWN:
+#/vis/open DAWNFILE
+#
+# Use this open statement to create a .heprep file suitable for
+# viewing in HepRApp:
+#/vis/open HepRepFile
+#
+# Use this open statement to create a .wrl file suitable for
+# viewing in a VRML viewer:
+#/vis/open VRML2FILE
+#
+# Disable auto refresh and quieten vis messages whilst scene and
+# trajectories are established:
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+#
+# Draw geometry:
+/vis/drawVolume
+#
+# Specify view angle:
+# /vis/viewer/set/viewpointThetaPhi 70. 40.
+#
+# Specify zoom value:
+#/vis/viewer/zoom 1.4
+#
+# Specify style (surface, wireframe, auxiliary edges,...)
+#/vis/viewer/set/style wireframe
+#/vis/viewer/set/auxiliaryEdge true
+#/vis/viewer/set/lineSegmentsPerCircle 100
+#
+# Draw coordinate axes:
+/vis/scene/add/axes 0 0 -1.5 0.05 m
+#
+# Draw smooth trajectories at end of event, showing trajectory points
+# as markers 2 pixels wide:
+/vis/scene/add/trajectories smooth
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 2
+# (if too many tracks cause core dump => /tracking/storeTrajectory 0)
+#
+# Draw hits at end of event:
+/vis/scene/add/hits
+#
+# To draw only gammas:
+#/vis/filtering/trajectories/create/particleFilter
+#/vis/filtering/trajectories/particleFilter-0/add gamma
+#
+# To invert the above, drawing all particles except gammas,
+# keep the above two lines but also add:
+#/vis/filtering/trajectories/particleFilter-0/invert true
+#
+# Many other options are available with /vis/modeling and /vis/filtering.
+# For example, to select colour by particle ID:
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+# To select or override default colours (note: e+ is blue by default):
+#/vis/modeling/trajectories/list
+#/vis/modeling/trajectories/drawByParticleID-0/set e+ yellow
+#
+# To superimpose all of the events from a given run:
+/vis/scene/endOfEventAction accumulate
+#
+# Re-establish auto refreshing and verbosity:
+/vis/viewer/set/autoRefresh true
+/vis/verbose warnings
+#
+# For file-based drivers, use this to create an empty detector view:
+#/vis/viewer/flush
+
+
+
+
+# -------------- Labels
+/vis/set/textColour 0.9 0.9 0.75
+/vis/scene/add/text 0 5 -110 cm 20 0 0 Beam
+/vis/set/textColour 0.4 0.4 0.4
+/vis/scene/add/text 0 16 -120 cm 20 0 0 Entrance
+
+/vis/set/textColour 0.25 0.25 0.75
+/vis/scene/add/text 0 -10 -62 cm 20 0 0 SciHod-U
+/vis/scene/add/text 0 -14 -55 cm 20 0 0 SciHod-Y
+/vis/scene/add/text 0 15 -40 cm 20 0 0 SciHod-X
+
+/vis/set/textColour 0.99 0.88 0.66
+/vis/scene/add/text 0 12 -26 cm 20 0 0 US GEM
+/vis/scene/add/text 0 -12 -25 cm 20 0 0 MS GEM
+/vis/scene/add/text 0 14 -8 cm 20 0 0 DS GEM
+/vis/set/textColour 0.75 0.6 0.75
+/vis/scene/add/text 0 9 10 cm 20 0 0 Target
+
+
+
+# -------------- To get nice view
+/vis/viewer/set/viewpointThetaPhi 70. 40.
+/vis/viewer/set/background 0.2 0.6 0.75
+/vis/set/colour red
+/vis/set/lineWidth 2
+/vis/geometry/set/visibility World 0 false
+#/vis/geometry/set/visibility ScatChamberLV 1 true
+/vis/geometry/set/visibility TargetDetectorLV 1 true
+/vis/viewer/set/style surface
+#/vis/viewer/set/hiddenMarker true
+

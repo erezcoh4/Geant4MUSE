@@ -1,0 +1,51 @@
+# $Id: runNeutronBeam.mac Erez $
+#
+# Macro file of "NeutronBeam.cc"
+#
+/control/verbose 2
+#
+/run/verbose 2
+/event/verbose 0
+/tracking/verbose 1
+/hits/verbose 2
+
+# ----------- viewpoint --------------------
+/control/execute vis.mac
+/vis/open OGL 600x600-0+0
+/vis/sceneHandler/create OGL
+/vis/viewer/create ! ! 600x600-0+0
+/vis/viewer/refresh
+/vis/viewer/set/autoRefresh false
+/vis/verbose errors
+/vis/drawVolume
+/vis/scene/create
+/vis/scene/add/volume world
+/vis/sceneHandler/attach
+/vis/viewer/zoom 1.4
+/vis/scene/add/trajectories smooth
+/tracking/storeTrajectory 2
+/vis/scene/notifyHandlers
+/vis/modeling/trajectories/create/drawByCharge
+/vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 1
+/vis/scene/notifyHandlers scene-0
+/vis/modeling/trajectories/create/drawByParticleID
+/vis/modeling/trajectories/drawByParticleID-0/default/setDrawStepPts true
+/vis/scene/notifyHandlers scene-0
+/vis/scene/endOfEventAction accumulate
+/vis/viewer/set/autoRefresh true
+/vis/viewer/refresh
+/vis/verbose warnings
+
+
+
+/vis/viewer/set/viewpointThetaPhi 70. 40.
+/vis/scene/add/axes 0 0 -0.1 0.05 m
+/vis/geometry/set/visibility World 0 false
+/vis/geometry/set/visibility DetectorLV 1 true
+/vis/viewer/set/style surface
+/vis/viewer/refresh
+
+
+/run/beamOn 20000

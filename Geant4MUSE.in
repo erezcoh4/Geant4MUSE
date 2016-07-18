@@ -1,0 +1,12 @@
+/tracking/verbose 1
+
+
+
+# Neutron 100 MeV
+# /gun/energy 100 MeV
+# /gun/particle neutron
+
+
+
+# /vis/viewer/set/viewpointThetaPhi 130 50
+exit
